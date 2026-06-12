@@ -1,5 +1,5 @@
 import React from "react";
-import { FaCoffee } from "react-icons/fa";
+import {   FaSpa } from "react-icons/fa";
 // import { serviceCategories } from './data'; // Path to your data array
 
 export default function TreatmentMenu() {
@@ -139,17 +139,10 @@ export default function TreatmentMenu() {
 
         {/* Premium Complimentary Footer Banner */}
         <div className="pt-5 border-t border-[#FFF5F5] flex items-start gap-3 text-xs text-[#6B4F4F] bg-[#FFF5F5]/60 p-4 rounded-2xl border border-[#FBCFE8]/30">
-          <FaCoffee className="text-[#DB2777] shrink-0 mt-0.5" size={16} />
-          <span className="leading-relaxed">
-            All appointments include tailored{" "}
-            <span className="font-semibold text-[#9D174D]">
-              aromatic tea blends
-            </span>
-            , freshly filtered{" "}
-            <span className="font-semibold text-[#9D174D]">
-              espresso coffee
-            </span>
-            , and premium biscuit trays.
+ <div className="w-9 h-9 rounded-full bg-gradient-to-tr from-[#9D174D] to-[#DB2777] flex items-center justify-center text-white shadow-xs">
+              <FaSpa size={16} />
+            </div>          <span className="leading-relaxed">
+           The Pink Room Kigali is a private, women-only sanctuary where beauty, relaxation, and self-care come together in an elegant and welcoming environment
           </span>
         </div>
       </div>
