@@ -23,6 +23,7 @@ import {
 } from "react-icons/fa";
 
 export default function PinkRoomLandingPage() {
+
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -49,6 +50,7 @@ export default function PinkRoomLandingPage() {
     },
   ];
 
+  // 1. Initialize the react-hook-form pipeline
   const {
     register,
     handleSubmit,
@@ -70,16 +72,49 @@ export default function PinkRoomLandingPage() {
     },
   });
 
+  // 2. THIS IS EXACTLY WHERE YOUR ON-SUBMIT FUNCTION GOES!
+  const onSubmit = async (data: BookingFormData) => {
+    try {
+      // Send the data packet directly to your hidden internal route handler
+      const response = await fetch("/api/send-email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.fullName, // matches destructured variables in route.ts
+          email: data.email,
+          phone: data.phone,
+          date: data.date,
+          services: data.services,
+          budget: `${data.budget[0].toLocaleString()} - ${data.budget[1].toLocaleString()} RWF`,
+          isMember: data.isMember,
+        }),
+      });
+
+      if (response.ok) {
+        console.log("Nodemailer Email sent out successfully!");
+        setIsSubmitted(true); // Switches UI window view to a success state
+      } else {
+        const errorResponse = await response.json();
+        alert(`Submission error: ${errorResponse.error || "Failed to process form."}`);
+      }
+    } catch (error) {
+      console.error("Network interface connection failure:", error);
+      alert("A network disconnect disrupted processing. Please verify network connection.");
+    }
+  };
+
   const scrollToSection = (id: string) => {
     setIsMobileMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const onSubmit = async (data: BookingFormData) => {
-    await new Promise((resolve) => setTimeout(resolve, 1200));
-    console.log("The Pink Room Booking Confirmed:", data);
-    setIsSubmitted(true);
-  };
+  // const onSubmit = async (data: BookingFormData) => {
+  //   await new Promise((resolve) => setTimeout(resolve, 1200));
+  //   console.log("The Pink Room Booking Confirmed:", data);
+  //   setIsSubmitted(true);
+  // };
 
   return (
     <div className="w-full bg-[#FFF5F5] text-[#4A2828] font-sans antialiased min-h-screen selection:bg-[#FCE7F3] selection:text-[#9D174D]">

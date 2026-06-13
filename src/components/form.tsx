@@ -43,6 +43,7 @@ export default function BookingForm({
   watch,
   setValue,
 }: BookingFormProps) {
+  
   const serviceCategories = [
     {
       name: "Nails & Halal Options",
@@ -212,6 +213,7 @@ export default function BookingForm({
           </p>
         )}
       </div>
+      
 
       {/* Form Block 3: Expenditure Dynamic Bar */}
       <div className="space-y-4">
